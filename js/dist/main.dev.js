@@ -318,38 +318,69 @@ var films = [{
   genres: ["Music", "Documentary"]
 }];
 
-var time = function time(a) {
-  return Math.round(a / 31536000) + 1970;
-};
+function domgachiqarish(array, node) {
+  var _iteratorNormalCompletion = true;
+  var _didIteratorError = false;
+  var _iteratorError = undefined;
 
-for (var _i = 0, _films = films; _i < _films.length; _i++) {
-  item = _films[_i];
-  var newItem = document.createElement("li");
-  var newLink = document.createElement("img");
-  var newSpan = document.createElement("span");
-  var newTitle = document.createElement("h2");
-  var newText = document.createElement("p");
-  var newData = document.createElement("data");
-  var newType = document.createElement("span"); //   newImg.src = `${item.img}`
-
-  newSpan.textContent = "".concat(item.id);
-  newTitle.textContent = "".concat(item.title);
-  newLink.src = "".concat(item.poster);
-  newText.textContent = "".concat(item.overview);
-  newData.textContent = "Years: ".concat(time(item.release_date));
-  newType.textContent = "".concat(item.genres);
-  newItem.setAttribute('class', 'itemm');
-  newSpan.setAttribute('class', 'spann');
-  newTitle.setAttribute('class', 'titlee');
-  newLink.setAttribute('class', 'linkk');
-  newText.setAttribute('class', 'textt');
-  newData.setAttribute('class', 'dataa');
-  newType.setAttribute('class', 'typee');
-  newItem.appendChild(newSpan);
-  newItem.appendChild(newTitle);
-  newItem.appendChild(newLink);
-  newItem.appendChild(newText);
-  newItem.appendChild(newData);
-  newItem.appendChild(newType);
-  elList.appendChild(newItem);
+  try {
+    for (var _iterator = array[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      item = _step.value;
+      var newItem = document.createElement("li");
+      var newSpan = document.createElement("span");
+      var newTitle = document.createElement("h2");
+      var newImg = document.createElement("img");
+      var newHeight = document.createElement("p");
+      var newStrong = document.createElement("strong");
+      var newWeight = document.createElement("p");
+      newSpan.textContent = " ".concat(item.id);
+      newTitle.textContent = " ".concat(item.title);
+      newImg.src = "".concat(item.poster);
+      newStrong.textContent = " ".concat(item.release_date);
+      newHeight.textContent = "".concat(item.overview);
+      newWeight.textContent = "".concat(item.genres);
+      newItem.setAttribute("class", "box");
+      newSpan.setAttribute("class", "spans");
+      newTitle.setAttribute("class", "titles");
+      newImg.setAttribute("class", "imgs");
+      newStrong.setAttribute("class", "types");
+      newHeight.setAttribute("class", "heights");
+      newWeight.setAttribute("class", "weights");
+      newItem.appendChild(newSpan);
+      newItem.appendChild(newTitle);
+      newItem.appendChild(newImg);
+      newItem.appendChild(newStrong);
+      newItem.appendChild(newHeight);
+      newItem.appendChild(newWeight);
+      node.appendChild(newItem);
+    }
+  } catch (err) {
+    _didIteratorError = true;
+    _iteratorError = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+        _iterator["return"]();
+      }
+    } finally {
+      if (_didIteratorError) {
+        throw _iteratorError;
+      }
+    }
+  }
 }
+
+domgachiqarish(films, elList);
+var elSelect = document.querySelector(".js-select");
+var result = [];
+elSelect.addEventListener("change", function () {
+  result = [];
+  elList.innerHTML = ' ';
+  var selectVal = elSelect.value;
+  pokemons.forEach(function (pokem) {
+    if (pokem.type.includes(selectVal)) {
+      result.push(pokem);
+    }
+  });
+  domgachiqarish(result, elList);
+});
